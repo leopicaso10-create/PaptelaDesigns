@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paptela Designs • Graphic Design Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --tw-color-purple: #8b5cf6;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tail-container * {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .logo-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(92deg, #f8f4ff 0%, #f0e6ff 100%);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #8b5cf6;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .placeholder-box {
+            background: linear-gradient(145deg, #f8f4ff, #ede9fe);
+            border: 3px dashed #c4b5fd;
+        }
+        
+        .shop-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .shop-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 25px 25px 0 -10px #8b5cf6;
+        }
+        
+        .logo-p {
+            background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 50%, #6d28d9 100%);
+            box-shadow: 
+                8px 8px 0 -4px #6d28d9,
+                inset 0 6px 0 rgba(255,255,255,0.4),
+                inset 0 -6px 0 rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="tail-container">
+    <!-- NAVBAR -->
+    <!-- NAVBAR -->
+<!-- NAVBAR -->
+<!-- NAVBAR -->
+<nav class="bg-white border-b-2 border-purple-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-screen-2xl mx-auto px-8 py-6 flex items-center justify-between">
+        
+        <!-- Logo with your actual image - BIGGER & SHARPER -->
+        <div onclick="showPage('home-page')" class="flex items-center gap-x-6 cursor-pointer">
+            <img src="Paptela designs.png" 
+                 alt="Paptela Designs Logo" 
+                 class="w-32 h-32 object-contain drop-shadow-lg scale-110">
+            
+            <div class="pt-2">
+                <h1 class="logo-font text-5xl font-semibold tracking-[-3px] text-slate-900">Paptela</h1>
+                <div class="flex items-center gap-x-4 -mt-1">
+                    <div class="h-px w-10 bg-purple-300"></div>
+                    <span class="text-purple-600 font-medium tracking-[4px] text-xl">DESIGNS</span>
+                    <div class="h-px w-10 bg-purple-300"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="hidden md:flex items-center gap-x-9 text-base font-medium text-slate-700">
+            <a onclick="showPage('home-page')" class="nav-link cursor-pointer hover:text-purple-600">Home</a>
+            <a onclick="showPage('about-page')" class="nav-link cursor-pointer hover:text-purple-600">About Us</a>
+            <a onclick="showPage('shop-page')" class="nav-link cursor-pointer hover:text-purple-600">Shop Templates</a>
+            <a onclick="showPage('custom-page')" class="nav-link cursor-pointer hover:text-purple-600">Custom Design</a>
+        </div>
+
+        <!-- Right side actions -->
+        <div class="flex items-center gap-x-6">
+            <!-- Cart -->
+            <div onclick="showCart()" class="flex items-center gap-x-2 cursor-pointer group">
+                <div class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-slate-700 group-hover:text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span id="cart-count-badge" class="absolute -top-1 -right-1 bg-purple-600 text-white text-[10px] font-bold w-5 h-5 rounded-2xl flex items-center justify-center">0</span>
+                </div>
+                <span id="cart-total" class="font-semibold text-slate-700 group-hover:text-purple-600">$0</span>
+            </div>
+
+            <!-- Mobile menu button -->
+            <button onclick="toggleMobileMenu()" class="md:hidden text-slate-700">
+                <svg id="mobile-menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <!-- CTA Button -->
+            <button onclick="showPage('custom-page')" 
+                    class="px-7 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-3xl text-sm font-semibold flex items-center gap-x-2 shadow-lg shadow-purple-300">
+                <span>START CUSTOM PROJECT</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M14 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-8 py-6 text-slate-700 font-medium">
+        <div onclick="showPage('home-page');toggleMobileMenu()" class="py-4 border-b">Home</div>
+        <div onclick="showPage('about-page');toggleMobileMenu()" class="py-4 border-b">About Us</div>
+        <div onclick="showPage('shop-page');toggleMobileMenu()" class="py-4 border-b">Shop Templates</div>
+        <div onclick="showPage('custom-page');toggleMobileMenu()" class="py-4 border-b">Request Custom Design</div>
+        <div class="pt-6 flex justify-center">
+            <button onclick="showPage('custom-page');toggleMobileMenu()" 
+                    class="w-full py-4 bg-purple-600 text-white rounded-3xl font-semibold">Start Your Custom Project</button>
+        </div>
+    </div>
+</nav>
+    <!-- HOME PAGE -->
+    <div id="home-page" class="page active">
+        
+        <!-- Hero -->
+        <div class="hero-bg pt-16 pb-20">
+            <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-7">
+                    <div class="inline-flex items-center bg-white rounded-3xl px-6 py-2 text-purple-600 font-semibold text-sm mb-6 shadow">
+                        ✨ NOW BOOKING FOR SUMMER EVENTS
+                    </div>
+                    <h1 class="text-7xl md:text-8xl font-semibold tracking-[-3px] leading-none logo-font text-slate-900 mb-4">
+                        YOUR VISION.<br>OUR DESIGN.
+                    </h1>
+                    <p class="text-3xl text-slate-600 max-w-lg">Flyers • Invitations • Cards • Posters • Social Graphics</p>
+                    <p class="mt-8 text-xl text-slate-500 max-w-md">Professional graphic design made fast, beautiful, and affordable. Based in Houston, TX.</p>
+                    
+                    <div class="flex flex-wrap gap-4 mt-12">
+                        <button onclick="showPage('shop-page')" 
+                                class="px-10 py-5 text-lg font-semibold bg-white border-2 border-purple-600 text-purple-600 rounded-3xl flex items-center gap-x-3 hover:bg-purple-50">
+                            BROWSE TEMPLATES
+                            <span class="text-2xl">→</span>
+                        </button>
+                        <button onclick="showPage('custom-page')" 
+                                class="px-10 py-5 text-lg font-semibold bg-purple-600 text-white rounded-3xl flex items-center gap-x-3 hover:shadow-2xl">
+                            REQUEST CUSTOM DESIGN
+                            <span class="text-2xl">✦</span>
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center gap-x-8 mt-16 text-sm">
+                        <div class="flex -space-x-4">
+                            <div class="w-8 h-8 bg-purple-200 rounded-2xl flex items-center justify-center text-xs ring-2 ring-white">📧</div>
+                            <div class="w-8 h-8 bg-pink-200 rounded-2xl flex items-center justify-center text-xs ring-2 ring-white">🎟️</div>
+                            <div class="w-8 h-8 bg-amber-200 rounded-2xl flex items-center justify-center text-xs ring-2 ring-white">💌</div>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Trusted by 1,200+ Houston businesses &amp; creatives</p>
+                            <p class="text-xs text-slate-400">4.98 average rating • 248 reviews</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hero visual -->
+                <div class="md:col-span-5 relative">
+                    <div class="aspect-square bg-white rounded-3xl shadow-2xl p-3 rotate-[-4deg]">
+                        <div class="placeholder-box w-full h-full rounded-3xl flex flex-col items-center justify-center text-center p-8">
+                            <div class="text-7xl mb-6">🪄</div>
+                            <p class="text-4xl font-semibold text-purple-600 logo-font">Your next design</p>
+                            <p class="text-purple-400 mt-2">starts here</p>
+                            <div class="mt-12 text-xs font-medium bg-white px-8 py-3 rounded-3xl shadow inline-flex items-center gap-2">
+                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                INSTANT PREVIEW AVAILABLE
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Floating badges -->
+                    <div class="absolute -top-6 -right-6 bg-white rounded-2xl shadow-xl px-6 py-3 flex items-center gap-x-3 text-lg rotate-6">
+                        ✨ 200+ templates
+                    </div>
+                    <div class="absolute bottom-8 -left-6 bg-white rounded-2xl shadow-xl px-6 py-3 text-lg flex items-center gap-x-3 -rotate-6">
+                        📍 Houston, Texas
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services -->
+        <div class="max-w-screen-2xl mx-auto px-8 py-16 border-b">
+            <h2 class="text-center text-4xl font-semibold mb-12 logo-font">What we create</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white border border-purple-100 rounded-3xl p-8 hover:border-purple-300 group">
+                    <div class="text-5xl mb-6">📄</div>
+                    <h3 class="text-2xl font-semibold mb-2">Flyers &amp; Posters</h3>
+                    <p class="text-slate-500">Event flyers, product launches, real estate, and bold promotional posters that stop the scroll.</p>
+                    <div class="mt-8 text-purple-600 text-sm font-medium flex items-center">STARTING AT $29 <span class="ml-auto group-hover:translate-x-1">→</span></div>
+                </div>
+                <div class="bg-white border border-purple-100 rounded-3xl p-8 hover:border-purple-300 group">
+                    <div class="text-5xl mb-6">💳</div>
+                    <h3 class="text-2xl font-semibold mb-2">Business Cards</h3>
+                    <p class="text-slate-500">Premium cards, die-cut, foil-stamped, and modern minimalist designs that make a lasting impression.</p>
+                    <div class="mt-8 text-purple-600 text-sm font-medium flex items-center">STARTING AT $19 <span class="ml-auto group-hover:translate-x-1">→</span></div>
+                </div>
+                <div class="bg-white border border-purple-100 rounded-3xl p-8 hover:border-purple-300 group">
+                    <div class="text-5xl mb-6">💌</div>
+                    <h3 class="text-2xl font-semibold mb-2">Invitations &amp; Cards</h3>
+                    <p class="text-slate-500">Weddings, birthdays, baby showers, corporate events — beautiful stationery that sets the tone.</p>
+                    <div class="mt-8 text-purple-600 text-sm font-medium flex items-center">STARTING AT $15 <span class="ml-auto group-hover:translate-x-1">→</span></div>
+                </div>
+                <div class="bg-white border border-purple-100 rounded-3xl p-8 hover:border-purple-300 group">
+                    <div class="text-5xl mb-6">📱</div>
+                    <h3 class="text-2xl font-semibold mb-2">Social Media Graphics</h3>
+                    <p class="text-slate-500">Instagram posts, stories, TikTok thumbnails, LinkedIn banners — scroll-stopping visuals.</p>
+                    <div class="mt-8 text-purple-600 text-sm font-medium flex items-center">STARTING AT $12 <span class="ml-auto group-hover:translate-x-1">→</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured work / quick templates -->
+        <div class="max-w-screen-2xl mx-auto px-8 py-16">
+            <div class="flex justify-between items-baseline mb-8">
+                <h2 class="text-4xl font-semibold logo-font">Featured templates</h2>
+                <button onclick="showPage('shop-page')" class="text-purple-600 font-medium flex items-center gap-x-2">See all 200+ <span class="text-xl">→</span></button>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Mini cards with placeholders -->
+                <div class="shop-card bg-white rounded-3xl overflow-hidden border">
+                    <div class="placeholder-box h-52 flex items-center justify-center text-purple-400 text-center px-4">
+                        <div>
+                            <p class="text-4xl">🎂</p>
+                            <p class="font-medium mt-4">BOLD BIRTHDAY FLYER</p>
+                            <p class="text-xs mt-1">Add image here</p>
+                        </div>
+                    </div>
+                    <div class="p-4 flex justify-between items-center">
+                        <div>
+                            <p class="font-semibold">$9</p>
+                        </div>
+                        <button onclick="quickBuy(9)" class="text-xs bg-purple-100 text-purple-700 px-5 py-2 rounded-2xl font-medium">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="shop-card bg-white rounded-3xl overflow-hidden border">
+                    <div class="placeholder-box h-52 flex items-center justify-center text-purple-400 text-center px-4">
+                        <div>
+                            <p class="text-4xl">💍</p>
+                            <p class="font-medium mt-4">MODERN WEDDING INVITE</p>
+                            <p class="text-xs mt-1">Add image here</p>
+                        </div>
+                    </div>
+                    <div class="p-4 flex justify-between items-center">
+                        <div>
+                            <p class="font-semibold">$18</p>
+                        </div>
+                        <button onclick="quickBuy(18)" class="text-xs bg-purple-100 text-purple-700 px-5 py-2 rounded-2xl font-medium">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="shop-card bg-white rounded-3xl overflow-hidden border">
+                    <div class="placeholder-box h-52 flex items-center justify-center text-purple-400 text-center px-4">
+                        <div>
+                            <p class="text-4xl">🏢</p>
+                            <p class="font-medium mt-4">REAL ESTATE FLYER</p>
+                            <p class="text-xs mt-1">Add image here</p>
+                        </div>
+                    </div>
+                    <div class="p-4 flex justify-between items-center">
+                        <div>
+                            <p class="font-semibold">$14</p>
+                        </div>
+                        <button onclick="quickBuy(14)" class="text-xs bg-purple-100 text-purple-700 px-5 py-2 rounded-2xl font-medium">ADD TO CART</button>
+                    </div>
+                </div>
+                <div class="shop-card bg-white rounded-3xl overflow-hidden border">
+                    <div class="placeholder-box h-52 flex items-center justify-center text-purple-400 text-center px-4">
+                        <div>
+                            <p class="text-4xl">☕</p>
+                            <p class="font-medium mt-4">COFFEE SHOP MENU CARD</p>
+                            <p class="text-xs mt-1">Add image here</p>
+                        </div>
+                    </div>
+                    <div class="p-4 flex justify-between items-center">
+                        <div>
+                            <p class="font-semibold">$11</p>
+                        </div>
+                        <button onclick="quickBuy(11)" class="text-xs bg-purple-100 text-purple-700 px-5 py-2 rounded-2xl font-medium">ADD TO CART</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT US PAGE -->
+    <div id="about-page" class="page">
+        <div class="max-w-screen-2xl mx-auto px-8 py-16">
+            <div class="text-center mb-16">
+                <span class="px-6 py-2 bg-purple-100 text-purple-600 rounded-3xl text-sm font-semibold">EST. 2026 • HOUSTON, TX</span>
+                <h1 class="text-6xl font-semibold logo-font mt-6">We don’t just design.<br>We tell your story.</h1>
+            </div>
+            
+            <div class="grid md:grid-cols-12 gap-16 items-center">
+                <div class="md:col-span-7 space-y-8 text-lg text-slate-600">
+                    <p>Paptela Designs was born in a small Houston studio with one mission: make beautiful graphic design accessible to everyone — from busy small businesses to excited event planners.</p>
+                    <p>Our founder, a former Wix creative director turned independent designer, noticed that most clients wanted fast, affordable, and stunning designs without the agency price tag. So we built a studio that blends premium custom work with ready-to-use, fully editable templates.</p>
+                    <p>Today we’ve helped over 1,200 clients launch events, grow their brands, and celebrate life’s big moments with designs that feel personal and look professional.</p>
+                    
+                    <div class="flex flex-wrap gap-8 pt-8">
+                        <div>
+                            <div class="text-5xl font-semibold text-purple-600">248</div>
+                            <div class="text-sm uppercase tracking-widest">Happy clients this month</div>
+                        </div>
+                        <div>
+                            <div class="text-5xl font-semibold text-purple-600">4.98</div>
+                            <div class="text-sm uppercase tracking-widest">Average rating</div>
+                        </div>
+                        <div>
+                            <div class="text-5xl font-semibold text-purple-600">∞</div>
+                            <div class="text-sm uppercase tracking-widest">Creativity unlocked</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team placeholders -->
+                <div class="md:col-span-5 grid grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="placeholder-box aspect-square rounded-3xl flex items-center justify-center mb-4 text-5xl">👦</div>
+                        <p class="font-semibold">Leonardo Venegas</p>
+                        <p class="text-sm text-purple-600">Founder &amp; Lead Designer</p>
+                        <p class="text-xs text-slate-400 mt-1">Brains of the whole operation</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="placeholder-box aspect-square rounded-3xl flex items-center justify-center mb-4 text-5xl">🧔</div>
+                        <p class="font-semibold">Marcus Hale</p>
+                        <p class="text-sm text-purple-600">Brand &amp; Flyer Specialist</p>
+                        <p class="text-xs text-slate-400 mt-1">Ex-Wix pro • 8 years experience</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="placeholder-box aspect-square rounded-3xl flex items-center justify-center mb-4 text-5xl">👩🏻‍💻</div>
+                        <p class="font-semibold">Priya Patel</p>
+                        <p class="text-sm text-purple-600">Invitation &amp; Card Wizard</p>
+                        <p class="text-xs text-slate-400 mt-1">Loves foil details &amp; texture</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-purple-600 text-white py-16">
+            <div class="max-w-screen-2xl mx-auto px-8 text-center">
+                <p class="text-4xl font-light max-w-2xl mx-auto">"Design is not just what it looks like. It’s how it makes people feel. We make them feel unstoppable."</p>
+                <p class="mt-8 text-purple-200">— Leonardo Venegas, Founder</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHOP / TEMPLATES PAGE -->
+    <div id="shop-page" class="page">
+        <div class="max-w-screen-2xl mx-auto px-8 py-12">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-y-6 mb-12">
+                <div>
+                    <h1 class="text-5xl font-semibold logo-font">Template Shop</h1>
+                    <p class="text-slate-500 text-xl">Instant download • Fully editable in Canva or Photoshop • Commercial license included</p>
+                </div>
+                
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-3">
+                    <div onclick="filterCategory(this)" data-category="all" class="active-filter px-6 py-3 bg-purple-600 text-white rounded-3xl text-sm font-medium cursor-pointer">All Templates</div>
+                    <div onclick="filterCategory(this)" data-category="flyer" class="px-6 py-3 hover:bg-slate-100 border border-slate-200 rounded-3xl text-sm font-medium cursor-pointer">Flyers</div>
+                    <div onclick="filterCategory(this)" data-category="invitation" class="px-6 py-3 hover:bg-slate-100 border border-slate-200 rounded-3xl text-sm font-medium cursor-pointer">Invitations</div>
+                    <div onclick="filterCategory(this)" data-category="card" class="px-6 py-3 hover:bg-slate-100 border border-slate-200 rounded-3xl text-sm font-medium cursor-pointer">Cards</div>
+                    <div onclick="filterCategory(this)" data-category="poster" class="px-6 py-3 hover:bg-slate-100 border border-slate-200 rounded-3xl text-sm font-medium cursor-pointer">Posters</div>
+                    <input id="search-input" 
+                           onkeyup="if(event.key==='Enter') filterTemplates()"
+                           placeholder="Search templates..." 
+                           class="px-8 py-3 border border-slate-200 rounded-3xl text-sm outline-none focus:border-purple-300 w-72">
+                </div>
+            </div>
+            
+            <!-- Templates grid – packed, very little open space -->
+            <div id="templates-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Populated by JS on load -->
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOM DESIGN REQUEST PAGE -->
+    <div id="custom-page" class="page">
+        <div class="max-w-screen-2xl mx-auto px-8 py-16">
+            <div class="grid md:grid-cols-12 gap-16">
+                <div class="md:col-span-5">
+                    <h1 class="text-6xl font-semibold logo-font leading-none">Let’s create<br>something<br>extraordinary.</h1>
+                    <p class="mt-8 text-2xl text-slate-600">Tell us your vision. We’ll deliver a custom design within 48 hours (or faster for rush projects).</p>
+                    
+                    <div class="mt-16 space-y-8">
+                        <div class="flex items-start gap-6">
+                            <div class="text-4xl">⚡</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">48-hour delivery</h4>
+                                <p class="text-slate-500">Most projects completed in under two business days.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-6">
+                            <div class="text-4xl">🔄</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Unlimited revisions</h4>
+                                <p class="text-slate-500">Until you’re 100% in love with the final files.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-6">
+                            <div class="text-4xl">📤</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Multiple file formats</h4>
+                                <p class="text-slate-500">PDF, PNG, editable Canva link, source files.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Form -->
+                <div class="md:col-span-7 bg-white rounded-3xl shadow-xl p-10">
+                    <form id="custom-form" onsubmit="handleCustomSubmit(event)">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-xs font-medium text-slate-400 block mb-2">YOUR NAME</label>
+                                <input type="text" id="name" required class="w-full rounded-2xl border border-slate-200 px-6 py-5 focus:border-purple-300 outline-none" placeholder="Luna Rivera">
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-slate-400 block mb-2">EMAIL ADDRESS</label>
+                                <input type="email" id="email" required class="w-full rounded-2xl border border-slate-200 px-6 py-5 focus:border-purple-300 outline-none" placeholder="you@email.com">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="text-xs font-medium text-slate-400 block mb-2">PROJECT TYPE</label>
+                            <select id="project-type" class="w-full rounded-2xl border border-slate-200 px-6 py-5 focus:border-purple-300 outline-none">
+                                <option>Flyer / Poster</option>
+                                <option>Invitation / Card</option>
+                                <option>Business Card Set</option>
+                                <option>Social Media Kit</option>
+                                <option>Branding Package</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="text-xs font-medium text-slate-400 block mb-2">TELL US ABOUT YOUR VISION</label>
+                            <textarea id="description" rows="6" required class="w-full rounded-3xl border border-slate-200 px-6 py-5 focus:border-purple-300 outline-none" placeholder="I need a bold real estate flyer for an open house this weekend. Think modern, purple tones, high-energy..."></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-6 mt-6">
+                            <div>
+                                <label class="text-xs font-medium text-slate-400 block mb-2">BUDGET</label>
+                                <select id="budget" class="w-full rounded-2xl border border-slate-200 px-6 py-5 focus:border-purple-300 outline-none">
+                                    <option>$75 – $150</option>
+                                    <option>$150 – $300</option>
+                                    <option>$300 – $500</option>
+                                    <option>$500+</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-slate-400 block mb-2">DEADLINE</label>
+                                <input type="text" id="deadline" placeholder="ASAP / May 15" class="w-full rounded-2xl border border-slate-200 px-6 py-5 focus:border-purple-300 outline-none">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="mt-10 w-full py-7 bg-gradient-to-r from-purple-600 to-violet-600 text-white text-xl font-semibold rounded-3xl flex items-center justify-center gap-x-3">
+                            SEND PROJECT BRIEF 
+                            <span class="text-3xl rotate-45">↗</span>
+                        </button>
+                        
+                        <p class="text-center text-xs text-slate-400 mt-6">We reply within 2 hours during business hours • 100% money-back guarantee</p>
+                    </form>
+                    
+                    <!-- Success message -->
+                    <div id="success-message" class="hidden text-center py-12">
+                        <div class="text-7xl mb-6">🎉</div>
+                        <h3 class="text-4xl font-semibold">Request received!</h3>
+                        <p class="mt-4 text-slate-600">Our team is already excited to bring your vision to life.<br>We’ll email you within the next 2 hours.</p>
+                        <button onclick="showPage('home-page')" class="mt-8 px-10 py-4 border border-slate-300 rounded-3xl text-slate-700">Back to Home</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-white">
+        <div class="max-w-screen-2xl mx-auto px-8 py-16 grid md:grid-cols-12 gap-y-12">
+            <div class="md:col-span-4">
+                <div class="flex items-center gap-x-4 text-white">
+                    <div class="logo-p w-10 h-10 rounded-3xl flex items-center justify-center text-5xl font-black rotate-[-8deg]">P</div>
+                    <div class="logo-font text-3xl">Paptela</div>
+                </div>
+                <p class="text-slate-400 mt-4">Houston’s favorite graphic design studio.<br>Creating visuals that make people say “wow.”</p>
+                <p class="text-xs text-slate-500 mt-8">© 2026 Paptela Designs. All Rights Reserved.</p>
+            </div>
+            
+            <div class="md:col-span-2">
+                <div class="uppercase text-purple-300 text-sm font-semibold mb-4">Company</div>
+                <div onclick="showPage('about-page')" class="cursor-pointer py-2 text-slate-300 hover:text-white">About Us</div>
+                <div class="cursor-pointer py-2 text-slate-300 hover:text-white">Our Process</div>
+                <div class="cursor-pointer py-2 text-slate-300 hover:text-white">Reviews</div>
+                <div class="cursor-pointer py-2 text-slate-300 hover:text-white">Blog</div>
+            </div>
+            
+            <div class="md:col-span-2">
+                <div class="uppercase text-purple-300 text-sm font-semibold mb-4">Templates</div>
+                <div onclick="showPage('shop-page')" class="cursor-pointer py-2 text-slate-300 hover:text-white">Browse All</div>
+                <div class="cursor-pointer py-2 text-slate-300 hover:text-white">Flyers</div>
+                <div class="cursor-pointer py-2 text-slate-300 hover:text-white">Invitations</div>
+                <div class="cursor-pointer py-2 text-slate-300 hover:text-white">Business Cards</div>
+            </div>
+            
+            <div class="md:col-span-2">
+                <div class="uppercase text-purple-300 text-sm font-semibold mb-4">Contact</div>
+                <a href="mailto:hello@papteladesigns.com" class="block py-2 text-slate-300 hover:text-white">hello@papteladesigns.com</a>
+                <a href="tel:7135550198" class="block py-2 text-slate-300 hover:text-white">(713) 555-0198</a>
+                <div class="py-2 text-slate-300">Houston, Texas</div>
+                <div class="text-xs text-slate-400 mt-8">Follow us on Instagram @papteladesigns</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Simple cart modal -->
+    <div onclick="if(event.target.id === 'cart-modal')hideCart()" id="cart-modal" class="hidden fixed inset-0 bg-black/60 z-[9999] flex items-end md:items-center justify-center">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-lg mx-4 mb-4 md:mb-0 rounded-3xl p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-semibold">Your cart</h3>
+                <button onclick="hideCart()" class="text-slate-400 text-4xl leading-none">×</button>
+            </div>
+            <div id="cart-items" class="space-y-6 min-h-48"></div>
+            
+            <div class="border-t pt-6 mt-8 flex justify-between text-2xl font-semibold">
+                <div>Total</div>
+                <div id="cart-total-modal">$0</div>
+            </div>
+            
+            <button onclick="checkout()" 
+                    class="w-full mt-8 py-7 bg-purple-600 text-white text-xl rounded-3xl">PROCEED TO CHECKOUT</button>
+            
+            <p class="text-xs text-center text-slate-400 mt-6">All templates come with commercial license + editable files</p>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Main script for the Paptela Designs single-file website
+         * Fully functional, Wix-style, dense layout with image placeholders
+         */
+        
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        configUser: userConfig,
+                        theme: {
+                            extend: {
+                                colors: {
+                                    purple: '#8b5cf6'
+                                }
+                            }
+                        }
+                    }
+                },
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+        
+        // Global cart
+        let cart = []
+        
+        function updateCartUI() {
+            const countEl = document.getElementById('cart-count-badge')
+            const totalEl = document.getElementById('cart-total')
+            
+            let total = cart.reduce((acc, item) => acc + item.price, 0)
+            
+            countEl.textContent = cart.length
+            totalEl.textContent = '$' + total
+        }
+        
+        function addToCart(item) {
+            cart.push(item)
+            updateCartUI()
+            
+            // Toast
+            const toast = document.createElement('div')
+            toast.style.cssText = 'position:fixed; bottom:24px; right:24px; background:#8b5cf6; color:white; padding:16px 24px; border-radius:9999px; box-shadow: 0 10px 15px -3px rgb(139 92 246); z-index:99999;'
+            toast.innerHTML = `✅ <strong>${item.name}</strong> added to cart`
+            document.body.appendChild(toast)
+            
+            setTimeout(() => toast.remove(), 2800)
+        }
+        
+        function quickBuy(price) {
+            const names = ["Birthday Flyer", "Wedding Invitation", "Real Estate Poster", "Coffee Menu Card"]
+            const name = names[Math.floor(Math.random() * names.length)]
+            addToCart({ name: name, price: price })
+        }
+        
+        // Template data (you can add more)
+        const templatesDB = [
+            { id: 1, category: "invitation", name: "Elegant Lavender Wedding Invitation", price: 18, emoji: "💍" },
+            { id: 2, category: "flyer", name: "Bold Open House Real Estate Flyer", price: 14, emoji: "🏠" },
+            { id: 3, category: "card", name: "Modern Thank You Business Card", price: 12, emoji: "💳" },
+            { id: 4, category: "invitation", name: "Bohemian Baby Shower Invitation", price: 15, emoji: "🍼" },
+            { id: 5, category: "poster", name: "Vibrant Music Festival Poster", price: 22, emoji: "🎤" },
+            { id: 6, category: "flyer", name: "Grand Opening Restaurant Flyer", price: 11, emoji: "🍔" },
+            { id: 7, category: "card", name: "Luxury Birthday Card Set", price: 9, emoji: "🎂" },
+            { id: 8, category: "invitation", name: "Corporate Holiday Party Invite", price: 16, emoji: "🎄" },
+            { id: 9, category: "poster", name: "Minimalist Product Launch Poster", price: 19, emoji: "📦" },
+            { id: 10, category: "flyer", name: "Yoga Studio Workshop Flyer", price: 13, emoji: "🧘" },
+            { id: 11, category: "card", name: "Sweet 16 Invitation Card", price: 10, emoji: "🎉" },
+            { id: 12, category: "poster", name: "Summer Sale Garage Sale Poster", price: 8, emoji: "🛍️" }
+        ]
+        
+        function renderTemplates(filteredTemplates) {
+            const grid = document.getElementById('templates-grid')
+            grid.innerHTML = ''
+            
+            filteredTemplates.forEach(t => {
+                const cardHTML = `
+                <div class="shop-card bg-white border border-slate-100 rounded-3xl overflow-hidden">
+                    <div class="placeholder-box h-64 flex flex-col items-center justify-center text-center px-6">
+                        <div class="text-7xl mb-6">${t.emoji}</div>
+                        <p class="font-semibold text-xl text-slate-800">${t.name}</p>
+                        <p class="text-xs text-purple-400 mt-3 tracking-widest">TEMPLATE PREVIEW</p>
+                        <div class="text-[10px] mt-auto text-slate-400">ADD YOUR IMAGE HERE</div>
+                    </div>
+                    <div class="px-6 py-5 flex items-center justify-between">
+                        <div class="font-semibold text-3xl text-purple-600">$${t.price}</div>
+                        <button onclick="addToCart({name: '${t.name}', price: ${t.price}})" 
+                                class="bg-purple-600 hover:bg-purple-700 text-white px-7 py-3 text-sm font-semibold rounded-3xl">
+                            BUY TEMPLATE
+                        </button>
+                    </div>
+                </div>`
+                grid.innerHTML += cardHTML
+            })
+            
+            // If none
+            if (filteredTemplates.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">No templates match your search.<br>Try different keywords!</div>`
+            }
+        }
+        
+        function filterCategory(el) {
+            // Remove active from all
+            document.querySelectorAll('#shop-page [data-category]').forEach(e => e.classList.remove('active-filter', 'bg-purple-600', 'text-white'))
+            // Add to clicked
+            el.classList.add('active-filter', 'bg-purple-600', 'text-white')
+            
+            const category = el.getAttribute('data-category')
+            let filtered = templatesDB
+            
+            if (category !== 'all') {
+                filtered = templatesDB.filter(t => t.category === category)
+            }
+            
+            renderTemplates(filtered)
+        }
+        
+        function filterTemplates() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim()
+            
+            const filtered = templatesDB.filter(t => 
+                t.name.toLowerCase().includes(searchTerm)
+            )
+            
+            renderTemplates(filtered)
+        }
+        
+        function handleCustomSubmit(e) {
+            e.preventDefault()
+            
+            // Hide form, show success
+            const form = document.getElementById('custom-form')
+            const success = document.getElementById('success-message')
+            
+            form.classList.add('hidden')
+            success.classList.remove('hidden')
+            
+            // Reset form after 4 seconds if they want to submit again
+            setTimeout(() => {
+                form.reset()
+                form.classList.remove('hidden')
+                success.classList.add('hidden')
+            }, 4500)
+        }
+        
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'))
+            // Show the requested one
+            const page = document.getElementById(pageId)
+            if (page) page.classList.add('active')
+            
+            // Close mobile menu if open
+            if (document.getElementById('mobile-menu').classList.contains('flex')) toggleMobileMenu()
+            
+            // Re-render shop if going to shop page
+            if (pageId === 'shop-page') {
+                renderTemplates(templatesDB)
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('mobile-menu-icon')
+            
+            if (menu.classList.contains('hidden')) {
+                menu.style.display = 'block'
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6h12v12" />`
+            } else {
+                menu.style.display = 'none'
+                icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />`
+            }
+        }
+        
+        function showCart() {
+            const modal = document.getElementById('cart-modal')
+            const itemsContainer = document.getElementById('cart-items')
+            
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = `<div class="text-center py-12 text-slate-300">Your cart is empty.<br>Browse the shop to add templates!</div>`
+            } else {
+                itemsContainer.innerHTML = cart.map((item, i) => `
+                    <div class="flex justify-between items-center">
+                        <div class="font-medium">${item.name}</div>
+                        <div class="font-semibold">$${item.price}</div>
+                    </div>`).join('')
+            }
+            
+            document.getElementById('cart-total-modal').textContent = '$' + cart.reduce((a, b) => a + b.price, 0)
+            modal.classList.remove('hidden')
+            modal.style.display = 'flex'
+        }
+        
+        function hideCart() {
+            const modal = document.getElementById('cart-modal')
+            modal.classList.add('hidden')
+            modal.style.display = 'none'
+        }
+        
+        function checkout() {
+            hideCart()
+            setTimeout(() => {
+                alert("🎟️ Thank you! Your templates have been sent to your email.\n\n(This is a demo — in a real site this would integrate with Stripe.)")
+                cart = []
+                updateCartUI()
+            }, 600)
+        }
+        
+        // Initialize everything
+        window.onload = function () {
+            initializeTailwind()
+            updateCartUI()
+            // Render shop templates immediately (in case someone refreshes on shop)
+            if (document.getElementById('shop-page').classList.contains('active')) {
+                renderTemplates(templatesDB)
+            }
+            
+            console.log('%c✅ Paptela Designs HTML website ready! Replace placeholder boxes with your own images.', 'background:#8b5cf6;color:white;padding:2px 6px;border-radius:4px')
+        }
+    </script>
+</body>
+</html>
